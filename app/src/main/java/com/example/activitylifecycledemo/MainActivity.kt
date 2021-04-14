@@ -15,12 +15,33 @@ const val TAG: String = "MainActivity"
 
 lateinit var binding: ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity()/*, View.OnClickListener*/ {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
+        binding=ActivityMainBinding.inflate(layoutInflater)
+        val view:View=binding.root;
         setContentView(view)
+
+
+        binding.displayButton.setOnClickListener(View.OnClickListener {
+            binding.firstNameText.text=binding.firstNameEdit.text
+            binding.lastNameText.text= binding.lastNameEdit.text
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         if(savedInstanceState!=null && savedInstanceState.containsKey("First")){
             binding.firstNameEdit.text=savedInstanceState.getString("First") as Editable
@@ -63,10 +84,23 @@ class MainActivity : AppCompatActivity()/*, View.OnClickListener*/ {
         Log.d(TAG, "onRestart")
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+    /*override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState.putString("First",binding.firstNameEdit.text.toString())
         outState.putString("Last",binding.lastNameEdit.text.toString())
-    }
+    }*/
 
 }
+
+/*
+data class Name(val _firstName:String,val _lastName:String):BaseObservable{
+
+    @Bindable var firstName:String=_firstName
+    set(value) {
+       field=firstName
+        notifyPropertyChanged(BR.firstName);
+    }
+
+
+
+}*/
