@@ -7,6 +7,9 @@ import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import androidx.databinding.DataBindingUtil
 import com.example.activitylifecycledemo.databinding.ActivityMainBinding
 
 
@@ -15,43 +18,12 @@ const val TAG: String = "MainActivity"
 
 lateinit var binding: ActivityMainBinding
 
-
 class MainActivity : AppCompatActivity()/*, View.OnClickListener*/ {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityMainBinding.inflate(layoutInflater)
-        val view:View=binding.root;
-        setContentView(view)
-
-
-        binding.displayButton.setOnClickListener(View.OnClickListener {
-            binding.firstNameText.text=binding.firstNameEdit.text
-            binding.lastNameText.text= binding.lastNameEdit.text
-        })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        if(savedInstanceState!=null && savedInstanceState.containsKey("First")){
-            binding.firstNameEdit.text=savedInstanceState.getString("First") as Editable
-            binding.lastNameEdit.text=savedInstanceState.getString("Second") as Editable
-        }
-
-        binding.displayButton.setOnClickListener(View.OnClickListener {
-            binding.firstNameText.text=binding.firstNameEdit.text
-            binding.lastNameText.text= binding.lastNameEdit.text
-        })
+        binding=DataBindingUtil.setContentView(this,R.layout.activity_main);
+        val name:Name = Name("","")
+        binding.name=name
     }
 
     override fun onStart() {
@@ -92,15 +64,17 @@ class MainActivity : AppCompatActivity()/*, View.OnClickListener*/ {
 
 }
 
-/*
-data class Name(val _firstName:String,val _lastName:String):BaseObservable{
+data class Name(private val _firstName:String,private val _lastName:String):BaseObservable(){
 
     @Bindable var firstName:String=_firstName
-    set(value) {
-       field=firstName
-        notifyPropertyChanged(BR.firstName);
+    set(value){
+      field =firstName
+        notifyPropertyChanged(BR.firstName)
     }
 
-
-
-}*/
+    @Bindable var lastName:String=_lastName
+        set(value){
+            field =lastName
+            notifyPropertyChanged(BR.lastName)
+        }
+}
