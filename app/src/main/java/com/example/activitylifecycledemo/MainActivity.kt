@@ -68,13 +68,13 @@ data class Name(private val _firstName:String,private val _lastName:String):Base
 
     @Bindable var firstName:String=_firstName
     set(value){
-      field =firstName
+      field =value
         notifyPropertyChanged(BR.firstName)
     }
 
     @Bindable var lastName:String=_lastName
         set(value){
-            field =lastName
+            field =value
             notifyPropertyChanged(BR.lastName)
         }
 }
