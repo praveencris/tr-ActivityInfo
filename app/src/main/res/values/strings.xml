@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ActivityLifecycleDemo</string>
+    <string name="settings">Settings</string>
+    <string name="menu_one">Menu One</string>
 </resources>
